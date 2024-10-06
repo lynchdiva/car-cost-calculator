@@ -51,6 +51,13 @@ resetButton.addEventListener('click', function () {
   form.reset();
 });
 
+const runInput = form.elements.run;
+runInput.addEventListener('input', function () {
+  if (runInput.value.length > 6) {
+    runInput.value = runInput.value.slice(0, 6);
+  }
+});
+
 function calculatePrice() {
   const modelPrice = +form.elements.model.value;
 
@@ -145,7 +152,7 @@ function makeModelsAvailable() {
   modelSelector.disabled = !brand;
 
   for (let option of modelOptions) {
-    option.hidden = !(option.getAttribute('name') === brand);
+    option.hidden = !(option.className === brand);
   }
 
   modelSelector.value = '';
