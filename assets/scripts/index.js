@@ -11,7 +11,7 @@ form.addEventListener('submit', function (event) {
   if (!hasError) {
     showTotalPrice(totalPrice);
 
-    hideError();
+    hideError('submit');
   }
 });
 
@@ -31,6 +31,10 @@ stateRadioButtons.forEach(button =>
   button.addEventListener('change', showAdditionalControls)
 );
 
+stateRadioButtons.forEach(button =>
+  button.addEventListener('change', () => editErrorMessage(button))
+);
+
 const resetButton = form.querySelector('.form__reset');
 
 resetButton.addEventListener('click', function () {
@@ -42,7 +46,7 @@ resetButton.addEventListener('click', function () {
   ownersContainer.hidden = true;
   span.textContent = '';
 
-  hideError();
+  hideError('reset');
 
   form.reset();
 });
@@ -188,7 +192,7 @@ function validateFields() {
     hasError = true;
   } else if (engineVolume < 1.1 || engineVolume > 3.5) {
     addTextToErrorMessage(
-      'Необходимо указать число от 1,1 до 3,5 включительно'
+      'Необходимо указать объем двигателя от 1,1 до 3,5 включительно'
     );
     hasError = true;
   }
@@ -218,15 +222,19 @@ function showError(errorMessage) {
   paragraph.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
-function hideError() {
+function hideError(event) {
   const paragraph = document.querySelector('.form__note');
-  paragraph.innerHTML =
-    '<strong>Для получения оценки, пожалуйста, заполните все поля</strong>';
+
+  if (event === 'reset') {
+    paragraph.innerHTML =
+      '<strong>Для получения оценки, пожалуйста, заполните все поля</strong>';
+  } else {
+    paragraph.innerHTML = '';
+  }
 }
 
-// const changeableElems = Array.from(form.elements).filter(
-//   item => item.tagName === 'INPUT' || item.tagName === 'SELECT'
-// );
-// changeableElems.forEach(elem => {
-//   elem.addEventListener('change', calculatePrice);
-// });
+function editErrorMessage(button) {
+  if (button.value === 'new' && button.checked) {
+    validateFields();
+  }
+}
