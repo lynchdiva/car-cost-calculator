@@ -3,11 +3,239 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@200..1000&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./assets/styles/normalize.css" />
     <link rel="stylesheet" href="./assets/styles/style.css" />
     <title>Car сost сalculator</title>
   </head>
   <body>
+    <main>
+      <section>
+        <form class="form" action="index.html" name="calculator" novalidate>
+          <h1 class="form__title">Калькулятор стоимости автомобиля</h1>
+
+          <div class="form__box">
+            <select class="form__brand" name="brand" id="brand" required>
+              <option value="" selected disabled hidden>Мaрка</option>
+
+              <option value="reno">Renault</option>
+              <option value="opel">Opel</option>
+              <option value="mazda">Mazda</option>
+              <option value="jaguar">Jaguar</option>
+            </select>
+
+            <select class="form__model" name="model" id="model" disabled>
+              <option value="" selected disabled hidden>Выбрать модель</option>
+              <option value="1560000" name="reno" id="logan" hidden>
+                Logan
+              </option>
+              <option value="1875000" name="reno" id="duster" hidden>
+                Duster
+              </option>
+              <option value="1647000" name="reno" id="sandero" hidden>
+                Sandero
+              </option>
+              <option value="1900000" name="reno" id="koleos" hidden>
+                Koleos
+              </option>
+
+              <option value="2100000" name="opel" id="astra" hidden>
+                Astra
+              </option>
+              <option value="2050000" name="opel" id="corsa" hidden>
+                Corsa
+              </option>
+              <option value="1785000" name="opel" id="mokka" hidden>
+                Mokka
+              </option>
+
+              <option value="2700000" name="mazda" id="6" hidden>6</option>
+              <option value="2800000" name="mazda" id="mazda CX-9" hidden>
+                CX-9
+              </option>
+              <option value="2230000" name="mazda" id="mazda CX-30" hidden>
+                CX-30
+              </option>
+              <option value="2160000" name="mazda" id="mazda RX-8" hidden>
+                RX-8
+              </option>
+
+              <option value="3050000" name="jaguar" id="f-type" hidden>
+                F-Type
+              </option>
+              <option value="3100000" name="jaguar" id="x-Type" hidden>
+                X-Type
+              </option>
+              <option value="3400000" name="jaguar" id="e-pace" hidden>
+                E-Pace
+              </option>
+            </select>
+
+            <fieldset class="form__fuel-types" name="fuel-types">
+              <legend class="form__fuel-title">Тип топлива</legend>
+
+              <label class="form__fuel-label">
+                <input
+                  class="form__checkbox"
+                  type="checkbox"
+                  name="petrol"
+                  value="0"
+                  checked
+                />
+                <span>Бензин</span>
+              </label>
+              <label class="form__fuel-label">
+                <input
+                  class="form__checkbox"
+                  type="checkbox"
+                  name="fuel"
+                  value="0"
+                />
+                <span>Топливо</span>
+              </label>
+              <label class="form__fuel-label">
+                <input
+                  class="form__checkbox"
+                  type="checkbox"
+                  name="gas"
+                  value="-3"
+                />
+                <span>Газ</span>
+              </label>
+              <label class="form__fuel-label">
+                <input
+                  class="form__checkbox"
+                  type="checkbox"
+                  name="electricity"
+                  value="5"
+                />
+                <span>Электричество</span>
+              </label>
+            </fieldset>
+
+            <label class="form__engine-label"
+              ><span>Объем двигателя (от 1,1 литра до 3,5 литров):</span>
+              <input
+                type="number"
+                name="engine"
+                min="1.1"
+                max="3.5"
+                step="0.1"
+                placeholder="1,1"
+                required
+                inputmode="decimal"
+              />
+            </label>
+
+            <p class="form__text">Состояние автомобиля:</p>
+
+            <label class="form__state-label"
+              ><input
+                class="form__radio-button"
+                type="radio"
+                name="state"
+                value="new"
+                checked
+              /><span>Новый</span></label
+            >
+            <label class="form__state-label"
+              ><input
+                class="form__radio-button"
+                type="radio"
+                name="state"
+                value="used"
+              /><span>Поддержанный</span></label
+            >
+
+            <div class="form__owner-container" hidden>
+              <p class="form__text">Количество владельцев:</p>
+
+              <label class="form__owner-label"
+                ><input
+                  class="form__radio-button"
+                  type="radio"
+                  name="owners"
+                  value="10"
+                  checked
+                /><span>1-2 владельца</span></label
+              >
+              <label class="form__owner-label"
+                ><input
+                  class="form__radio-button"
+                  type="radio"
+                  name="owners"
+                  value="15"
+                /><span>3 владельца</span></label
+              >
+              <label class="form__owner-label"
+                ><input
+                  class="form__radio-button"
+                  type="radio"
+                  name="owners"
+                  value="20"
+                /><span>более 3-х владельцев</span></label
+              >
+
+              <label class="form__run-label">
+                <span>Пробег:</span>
+                <input
+                  class="form__run"
+                  type="number"
+                  name="run"
+                  placeholder="км"
+                  maxlength="6"
+                  inputmode="numeric"
+              /></label>
+            </div>
+
+            <fieldset class="form__payments" name="payments">
+              <legend class="form__payments-title">Способ оплаты</legend>
+              <label class="form__payments-label"
+                ><input class="form__checkbox" type="checkbox" value="5" /><span
+                  >Карта</span
+                ></label
+              >
+              <label class="form__payments-label"
+                ><input class="form__checkbox" type="checkbox" value="0" /><span
+                  >Наличные</span
+                ></label
+              >
+              <label class="form__payments-label"
+                ><input class="form__checkbox" type="checkbox" value="0" /><span
+                  >Счет на юридическое лицо</span
+                ></label
+              >
+            </fieldset>
+
+            <button class="form__submit btn-67">Рассчитать</button>
+            <button class="form__reset btn-67" type="reset">
+              Очистить форму
+            </button>
+
+            <p class="form__note">
+              <strong
+                >Для получения оценки, пожалуйста, заполните все поля</strong
+              >
+            </p>
+          </div>
+        </form>
+
+        <p class="total-price">
+          <span>Расчётная цена:</span>
+          <span id="total"></span>
+          <span class="total-price__note"
+            >* Точная стоимость вашего автомобиля может быть определена
+            исключительно после визуального осмотра автомобиля и проведения
+            диагностики специалистами.</span
+          >
+        </p>
+      </section>
+    </main>
     <script src="./assets/scripts/index.js"></script>
   </body>
 </html>
