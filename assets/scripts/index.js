@@ -32,7 +32,7 @@ stateRadioButtons.forEach(button =>
 );
 
 stateRadioButtons.forEach(button =>
-  button.addEventListener('change', () => editErrorMessage(button))
+  button.addEventListener('change', () => editError(button))
 );
 
 const resetButton = form.querySelector('.form__reset');
@@ -240,8 +240,15 @@ function hideError(event) {
   }
 }
 
-function editErrorMessage(button) {
-  if (button.value === 'new' && button.checked) {
+function editError(button) {
+  const paragraph = document.querySelector('.form__note');
+  console.log(paragraph.textContent);
+  if (
+    button.value === 'new' &&
+    button.checked &&
+    paragraph.textContent.trim() !==
+      'Для получения оценки, пожалуйста, заполните все поля'
+  ) {
     validateFields();
   }
 }
