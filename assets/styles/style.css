@@ -50,6 +50,7 @@ body {
 .form__checkbox {
   width: 20px;
   height: 20px;
+  flex: none;
 }
 
 .form__radio-button {
@@ -115,6 +116,7 @@ body {
 
 .form__run-label {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 15px;
   margin-top: 25px;
@@ -313,5 +315,33 @@ body {
   to {
     height: 100%;
     width: 100%;
+  }
+}
+
+/*//////////////////////MEDIA/////////////////////////*/
+@media screen and (max-width: 662px) {
+  .form__fuel-types {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 585px) {
+  body {
+    padding: 14px;
+  }
+
+  .form__brand {
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .btn-67 {
+    width: 100%;
+    font-size: 18px;
+  }
+
+  .form__reset {
+    margin-top: 15px;
   }
 }

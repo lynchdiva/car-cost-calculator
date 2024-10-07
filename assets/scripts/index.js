@@ -242,7 +242,7 @@ function hideError(event) {
 
 function editError(button) {
   const paragraph = document.querySelector('.form__note');
-  console.log(paragraph.textContent);
+
   if (
     button.value === 'new' &&
     button.checked &&
