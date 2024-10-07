@@ -6,24 +6,24 @@ form.addEventListener('submit', function (event) {
   event.preventDefault();
 
   const hasError = validateFields();
+
+  if (hasError) return;
+
   const totalPrice = calculatePrice();
 
-  if (!hasError) {
-    showTotalPrice(totalPrice);
+  showTotalPrice(totalPrice);
 
-    hideError('submit');
-  }
+  hideError('submit');
 });
 
 const brandSelector = form.elements.brand;
-
-brandSelector.addEventListener('change', makeModelsAvailable);
-
 const modelSelector = form.elements.model;
 const modelOptions = modelSelector.querySelectorAll('option');
 
+brandSelector.addEventListener('change', makeModelsAvailable);
+
 function makeModelsAvailable() {
-  //способ для обхода баги в Safari для скрытия option без использования hidden и display: none;
+  //способ для обхода бага в Safari для скрытие option без использования hidden и display: none;
   const brandSelector = form.elements.brand;
   const brand = brandSelector.value;
 
@@ -54,7 +54,7 @@ stateRadioButtons.forEach(button =>
 );
 
 stateRadioButtons.forEach(button =>
-  button.addEventListener('change', () => editError(button))
+  button.addEventListener('change', editError)
 );
 
 const resetButton = form.querySelector('.form__reset');
@@ -173,6 +173,7 @@ function showAdditionalControls() {
 
 function validateFields() {
   const errorSymbol = '&#10071; ';
+  const engineVolumeRegex = /^(1(?:[.,][1-9])?|2(?:[.,]\d)?|3(?:[.,][0-5])?)$/;
 
   const brand = form.elements.brand.value;
   const model = form.elements.model.value;
@@ -185,8 +186,8 @@ function validateFields() {
   const run = form.elements.run.value;
 
   let hasError = false;
-
   let errorMessage = '';
+
   const addTextToErrorMessage = text => {
     errorMessage += `${errorSymbol} ${text} <br>`;
   };
@@ -204,9 +205,9 @@ function validateFields() {
   if (engineVolume === '') {
     addTextToErrorMessage('Необходимо указать объем двигателя');
     hasError = true;
-  } else if (engineVolume < 1.1 || engineVolume > 3.5) {
+  } else if (!engineVolumeRegex.test(engineVolume)) {
     addTextToErrorMessage(
-      'Необходимо указать объем двигателя от 1,1 до 3,5 включительно'
+      'Объем двигателя должен быть в формате числа от 1,1 до 3,5 включительно'
     );
     hasError = true;
   }
@@ -242,17 +243,18 @@ function hideError(event) {
   if (event === 'reset') {
     paragraph.innerHTML =
       '<strong>Для получения оценки, пожалуйста, заполните все поля</strong>';
-  } else {
+  } else if (event === 'submit') {
     paragraph.innerHTML = '';
   }
 }
 
-function editError(button) {
+function editError() {
+  //если выбрана radio кнопка со значением "Новый" обновлять текст ошибки, чтобы убрать ошибку о пробеге авто
   const paragraph = document.querySelector('.form__note');
 
   if (
-    button.value === 'new' &&
-    button.checked &&
+    this.value === 'new' &&
+    this.checked &&
     paragraph.textContent.trim() !==
       'Для получения оценки, пожалуйста, заполните все поля'
   ) {
