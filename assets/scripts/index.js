@@ -37,6 +37,8 @@ function makeModelsAvailable() {
       modelSelector.appendChild(option);
     }
   });
+
+  modelSelector.value = '';
 }
 
 const fuelCheckboxes = form.elements['fuel-types'].querySelectorAll('input');
