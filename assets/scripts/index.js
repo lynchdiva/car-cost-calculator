@@ -19,6 +19,26 @@ const brandSelector = form.elements.brand;
 
 brandSelector.addEventListener('change', makeModelsAvailable);
 
+const modelSelector = form.elements.model;
+const modelOptions = modelSelector.querySelectorAll('option');
+
+function makeModelsAvailable() {
+  //способ для обхода баги в Safari для скрытия option без использования hidden и display: none;
+  const brandSelector = form.elements.brand;
+  const brand = brandSelector.value;
+
+  modelSelector.disabled = !brand;
+
+  modelSelector.innerHTML =
+    '<option value="" selected disabled hidden>Выбрать модель</option>';
+
+  modelOptions.forEach(option => {
+    if (option.className === brand) {
+      modelSelector.appendChild(option);
+    }
+  });
+}
+
 const fuelCheckboxes = form.elements['fuel-types'].querySelectorAll('input');
 const paymentsCheckboxes = form.elements.payments.querySelectorAll('input');
 
@@ -141,21 +161,6 @@ function changeCheckboxesBehavior(checkboxes) {
 
   makeChoosingSingleCheckbox(checkboxes);
   preventFlagUncheckedByClick(checkboxes);
-}
-
-function makeModelsAvailable() {
-  const brandSelector = form.elements.brand;
-  const brand = brandSelector.value;
-  const modelSelector = form.elements.model;
-  const modelOptions = modelSelector.querySelectorAll('option');
-
-  modelSelector.disabled = !brand;
-
-  for (let option of modelOptions) {
-    option.hidden = !(option.className === brand);
-  }
-
-  modelSelector.value = '';
 }
 
 function showAdditionalControls() {
