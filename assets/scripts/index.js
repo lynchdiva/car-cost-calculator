@@ -34,7 +34,7 @@ function makeModelsAvailable() {
 
   modelOptions.forEach(option => {
     if (option.className === brand) {
-      modelSelector.appendChild(option);
+      modelSelector.append(option);
     }
   });
 
@@ -173,11 +173,13 @@ function showAdditionalControls() {
 
 function validateFields() {
   const errorSymbol = '&#10071; ';
-  const engineVolumeRegex = /^(1(?:[.,][1-9])?|2(?:[.,]\d)?|3(?:[.,][0-5])?)$/;
 
   const brand = form.elements.brand.value;
   const model = form.elements.model.value;
   const engineVolume = form.elements.engine.value;
+
+  const normalizedEngineVolume = engineVolume.replace(',', '.');
+  const engineVolumeRegex = /^(1(?:[.][1-9])?|2(?:[.]\d)?|3(?:[.][0-5])?)$/;
 
   const paymentsCheckboxes = Array.from(
     form.elements.payments.querySelectorAll('input')
@@ -205,7 +207,7 @@ function validateFields() {
   if (engineVolume === '') {
     addTextToErrorMessage('Необходимо указать объем двигателя');
     hasError = true;
-  } else if (!engineVolumeRegex.test(engineVolume)) {
+  } else if (!engineVolumeRegex.test(normalizedEngineVolume)) {
     addTextToErrorMessage(
       'Объем двигателя должен быть в формате числа от 1,1 до 3,5 включительно'
     );
